@@ -12,6 +12,9 @@ import Signup from "./pages/Signup.jsx";
 import { Toaster } from "react-hot-toast";
 import Logout from "./pages/Logout.jsx";
 import AddPost from "./pages/AddPost.jsx";
+import AuthLayout from "./components/AuthLayout.jsx";
+import Post from "./pages/Post.jsx";
+import Invalid from "./pages/Invalid.jsx";
 
 const router = createBrowserRouter([
   {
@@ -20,11 +23,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: 
+        <AuthLayout >
+          <Home />
+        </AuthLayout>
       },
       {
         path : "/login",
-        element: <Login />
+        element: 
+        <Login />
       },
       {
         path : "/logout",
@@ -36,7 +43,22 @@ const router = createBrowserRouter([
       },
       {
         path : "/add-post",
-        element : <AddPost />
+        element : 
+        <AuthLayout >
+          <AddPost />
+        </AuthLayout>
+      },
+      {
+        path : "/post/:id",
+        element: 
+        <AuthLayout>
+          <Post />
+        </AuthLayout>
+        
+      },{
+        path : "/404",
+        element:
+        <Invalid />
       }
     ],
   },

@@ -50,6 +50,7 @@ const Login = () => {
                 if(res){
                     toast.success("You are logged-in now. Enjoy :)");
                     naviagte("/");
+                    console.log("User Details : " , res);
                     dispatch(login(res));
                     localStorage.setItem("user" , JSON.stringify(res));
                 }else{

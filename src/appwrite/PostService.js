@@ -62,9 +62,25 @@ export class PostService {
     
   }
 
+  async getFileView(fileId){
+    try {
+      console.log("File id is " + fileId);
+      const res = await this.storage.getFileView(Config.appwriteBucketId , fileId);
+      console.log("File re" + typeof res);
+      if(res){
+        return res;
+      }else{
+        false;
+      }
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
   async addPost({title , content , slug , featuredImage , userId}){
     try {
         const featuredImageId = await this.uploadFile(featuredImage);
+        console.log("File uploaded" , featuredImageId);
         const res = this.databases.createDocument(
             Config.appwriteDatabaseId,
             Config.appwriteCollectionId,
@@ -73,6 +89,7 @@ export class PostService {
                 title,
                 content,
                 featuredImage : featuredImageId.$id,
+                slug,
                 userId
             }
         )

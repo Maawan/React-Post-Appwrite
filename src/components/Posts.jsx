@@ -40,7 +40,11 @@ const Posts = () => {
         
         {
         posts.documents !== undefined &&  posts?.documents.map((post) => (
-          <div key={post.$id} className="w-[230px] m-4 h-[250px] shadow transition-all duration-300 hover:shadow-lg border rounded-lg overflow-hidden">
+          <div key={post.$id} 
+            onClick={(e) => {
+              navigate(`post/${post.slug}`)
+            }}
+          className="w-[230px] m-4 h-[250px] shadow transition-all duration-300 hover:shadow-lg border rounded-lg overflow-hidden">
             <img
               className="h-[125px] w-screen"
               src={postService.getFilePreview(post.featuredImage)}
@@ -59,6 +63,7 @@ const Posts = () => {
             ) : (
               <p className="text-[12px] mx-2">{post.content}</p>
             )}
+            <p>{post.userId} this is the owner</p>
           </div>
         ))}
       </div>

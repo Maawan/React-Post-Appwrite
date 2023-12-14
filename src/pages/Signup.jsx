@@ -16,6 +16,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  
   return (
     <div className="w-[350px] mx-auto my-4 rounded-xl p-8 border bg-blue-100 flex justify-center flex-col items-center">
       <Logo classname={`h-16 mb-4`} />

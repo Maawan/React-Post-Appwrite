@@ -47,12 +47,26 @@ export class AuthService {
     async getCurrentUser() {
         try {
             const user = await this.account.get();
+            
             if(user) return user;
             return false;
         } catch (error) {
             return false;
         }
     }
+    async getUserDetails(userId){
+        try {
+            const user = await this.account.get(userId)
+            if(user){
+                return user;
+            }
+            return false;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    
 }
 const authService = new AuthService();
 export default authService;

@@ -28,6 +28,8 @@ const AddPost = () => {
       console.log(editorRef.current.getContent());
     }
   };
+  const userId =  useSelector(state => state.user.userData);
+  const isLoggedIn = useSelector(state => state.user.isLoggedIn);
 
   useEffect(() => {
     let tempSlug = "";
@@ -69,6 +71,7 @@ const AddPost = () => {
     <>
       <div className="flex flex-col w-full md:flex-row sm:flex-col ">
         <div className="w-full md:w-2/3  flex flex-col p-4">
+          
           <Input
             placeholder={"Enter the Titile"}
             className={"m-4 border-2 rounded-md h-10 pl-4 font-lumanosimo"}
@@ -113,20 +116,27 @@ const AddPost = () => {
                 className={"w-[300px] h-10 border mt-4 rounded-md bg-blue-500 text-white font-semibold transition-all duration-500 hover:bg-blue-700 active:bg-green-600"
               }
                 onClick={ async(e) => {
-                  dispatch(enableLoading());
-                  const res = await postService.addPost({title , slug , content , 
-                  featuredImage : imageFile , userId : "null"})
-                  if(res){
-                    toast.success("Your post have been published successfully :)")
-                    console.log(res);
-                    console.log("Data inserted successfully ");
-                  }
-                  dispatch(disableLoading());
-                  navigate("/" , {
-                    state : {
-                      refresh : true
+                  if(slugAvailable){
+                    dispatch(enableLoading());
+                    console.log(userId , "this is userId");
+                    console.log("Slug is this " , slug);
+                    const res = await postService.addPost({title , slug , content , 
+                    featuredImage : imageFile , userId : userId.$id })
+                    if(res){
+                      toast.success("Your post have been published successfully :)")
+                      console.log(res);
+                      console.log("Data inserted successfully ");
                     }
-                  })
+                    dispatch(disableLoading());
+                    navigate("/" , {
+                      state : {
+                        refresh : true
+                      }
+                    })
+                  }else{
+                    toast.error("Please choose a different title, slug is not available")
+                  }
+                  
                 }}
               >Submit</ButtonSubmit>
 
